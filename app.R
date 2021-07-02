@@ -776,30 +776,31 @@ server <- function(input, output,session) {
         age1 <- input$age1
         age2 <- input$age2
         age3 <- input$age3
+        
         a1 <- (needMoney)*12*An(i = i1/100,n = (age3-as.numeric(age0[[2]])))+
-            (needMoney2-needMoney)*12*v^(age1-as.numeric(age0[[2]]))*An(i = i1/100,n = (age3-age1))+
-            (needMoney3-needMoney2)*12*v^(age2-as.numeric(age0[[2]]))*An(i = i1/100,n = (age3-age2)) # 年
+            (needMoney2-needMoney)*12*(1/(1+i1/100))^(age1-as.numeric(age0[[2]]))*An(i = i1/100,n = (age3-age1))+
+            (needMoney3-needMoney2)*12*(1/(1+i1/100))^(age2-as.numeric(age0[[2]]))*An(i = i1/100,n = (age3-age2)) # 年
         
         a2 <- (needMoney)*12*An(i = i2/100,n = (age3-as.numeric(age0[[2]])))+
-            (needMoney2-needMoney)*12*v^(age1-as.numeric(age0[[2]]))*An(i = i2/100,n = (age3-age1))+
-            (needMoney3-needMoney2)*12*v^(age2-as.numeric(age0[[2]]))*An(i = i2/100,n = (age3-age2)) # 年
+            (needMoney2-needMoney)*12*(1/(1+i2/100))^(age1-as.numeric(age0[[2]]))*An(i = i2/100,n = (age3-age1))+
+            (needMoney3-needMoney2)*12*(1/(1+i2/100))^(age2-as.numeric(age0[[2]]))*An(i = i2/100,n = (age3-age2)) # 年
         
         a3 <- (needMoney)*12*An(i = i3/100,n = (age3-as.numeric(age0[[2]])))+
-            (needMoney2-needMoney)*12*v^(age1-as.numeric(age0[[2]]))*An(i = i3/100,n = (age3-age1))+
-            (needMoney3-needMoney2)*1*v^(age2-as.numeric(age0[[2]]))*An(i = i3/100,n = (age3-age2)) # 年
+            (needMoney2-needMoney)*12*(1/(1+i3/100))^(age1-as.numeric(age0[[2]]))*An(i = i3/100,n = (age3-age1))+
+            (needMoney3-needMoney2)*1*(1/(1+i3/100))^(age2-as.numeric(age0[[2]]))*An(i = i3/100,n = (age3-age2)) # 年
         
         ## 確定年金價值 (月計息)
         b1 <- (needMoney)*An(i = i1/100/12,n = (age3-as.numeric(age0[[2]]))*m)+
-            (needMoney2-needMoney)*v^(age1-as.numeric(age0[[2]]))*An(i = i1/100/12,n = (age3-age1)*m)+
-            (needMoney3-needMoney2)*v^(age2-as.numeric(age0[[2]]))*An(i = i1/100/12,n = (age3-age2)*m) # 月
+            (needMoney2-needMoney)*(1/(1+i1/100/12))^(age1-as.numeric(age0[[2]]))*An(i = i1/100/12,n = (age3-age1)*m)+
+            (needMoney3-needMoney2)*(1/(1+i1/100/12))^(age2-as.numeric(age0[[2]]))*An(i = i1/100/12,n = (age3-age2)*m) # 月
         
         b2 <- (needMoney)*An(i = i2/100/12,n = (age3-as.numeric(age0[[2]]))*m)+
-            (needMoney2-needMoney)*v^(age1-as.numeric(age0[[2]]))*An(i = i2/100/12,n = (age3-age1)*m)+
-            (needMoney3-needMoney2)*v^(age2-as.numeric(age0[[2]]))*An(i = i2/100/12,n = (age3-age2)*m) # 月
+            (needMoney2-needMoney)*(1/(1+i2/100/12))^(age1-as.numeric(age0[[2]]))*An(i = i2/100/12,n = (age3-age1)*m)+
+            (needMoney3-needMoney2)*(1/(1+i2/100/12))^(age2-as.numeric(age0[[2]]))*An(i = i2/100/12,n = (age3-age2)*m) # 月
         
         b3 <- (needMoney)*An(i = i3/100/12,n = (age3-as.numeric(age0[[2]]))*m)+
-            (needMoney2-needMoney)*v^(age1-as.numeric(age0[[2]]))*An(i = i3/100/12,n = (age3-age1)*m)+
-            (needMoney3-needMoney2)*v^(age2-as.numeric(age0[[2]]))*An(i = i3/100/12,n = (age3-age2)*m) # 月
+            (needMoney2-needMoney)*(1/(1+i3/100/12))^(age1-as.numeric(age0[[2]]))*An(i = i3/100/12,n = (age3-age1)*m)+
+            (needMoney3-needMoney2)*(1/(1+i3/100/12))^(age2-as.numeric(age0[[2]]))*An(i = i3/100/12,n = (age3-age2)*m) # 月
         
         
         DT <- data.frame("利率%" = c(i1,i2,i3),
